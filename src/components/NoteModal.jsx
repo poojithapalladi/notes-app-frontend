@@ -26,7 +26,7 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
       if (currentNote) {
         // EDIT NOTE
         const response = await axios.put(
-          `http://localhost:5001/api/note/${currentNote._id}`,
+          `https://notes-app-backend-li0h.onrender.com/api/note/${currentNote._id}`,
           { title, description },
           { headers: { Authorization: `Bearer ${token}` } }
         );

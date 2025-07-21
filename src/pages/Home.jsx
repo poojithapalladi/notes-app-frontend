@@ -18,7 +18,7 @@ const Home = () => {
   }, []);
 
   // Filter when query or notes change
-  useEffect(() => {
+  useEffect(() => { 
     const q = query.toLowerCase();
     setFilteredNotes(
       notes.filter(n =>

@@ -4,7 +4,7 @@ import api from '../api';
 
 const Signup = () => {
   const [name, setName]         = useState('');
-  const [email, setEmail]       = useState('');
+  const [email, setEmail]       = useState(''); 
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -14,8 +14,7 @@ const Signup = () => {
       const { data } = await api.post('/api/auth/register', { name, email, password });
       console.log('Register response:', data);
       if (data.success) {
-        // auto-login? we could store token; for now go to login page
-        navigate('/login');
+         navigate('/login');
       } else {
         alert(data.message || 'Registration failed');
       }
