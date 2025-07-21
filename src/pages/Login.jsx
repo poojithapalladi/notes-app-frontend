@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/ContextProvider.jsx';
-import api from '../api';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,14 +16,23 @@ const Login = () => {
       alert('Please enter both email and password.');
       return;
     }
+
     setLoading(true);
     try {
-      const { data } = await api.post('/api/auth/login', { email, password });
+      const { data } = await axios.post(
+        'https://notes-app-backend-li0h.onrender.com/api/auth/login',
+        { email, password }
+      );
+
       console.log('Login response:', data);
+
       if (data.success) {
+        // Save token & user info
         localStorage.setItem('token', data.token);
-        login(data.user);
-        navigate('/'); // Home
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        login(data.user);  // Update global context
+        navigate('/');     // Redirect to home
       } else {
         alert(data.message || 'Login failed');
       }
@@ -43,17 +52,23 @@ const Login = () => {
           <div className='mb-4'>
             <label htmlFor="email" className='block text-gray-700'>Email</label>
             <input
-              type="email" id="email" value={email}
-              onChange={e => setEmail(e.target.value)}
-              className='w-full px-3 py-2 border rounded' required
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className='w-full px-3 py-2 border rounded'
+              required
             />
           </div>
           <div className='mb-4'>
             <label htmlFor="password" className='block text-gray-700'>Password</label>
             <input
-              type="password" id="password" value={password}
-              onChange={e => setPassword(e.target.value)}
-              className='w-full px-3 py-2 border rounded' required
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className='w-full px-3 py-2 border rounded'
+              required
             />
           </div>
           <div className='mb-4'>

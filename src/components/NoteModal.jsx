@@ -1,11 +1,10 @@
+// src/components/NoteModal.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  // Load current note data when editing
   useEffect(() => {
     if (currentNote) {
       setTitle(currentNote.title);
@@ -13,45 +12,14 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
     }
   }, [currentNote]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found! User is not logged in.');
-      return;
+    if (currentNote) {
+      editNote(currentNote._id, title, description);
+    } else {
+      addNote(title, description);
     }
-
-
-    try {
-      if (currentNote) {
-        // EDIT NOTE
-        const response = await axios.put(
-          `https://notes-app-backend-li0h.onrender.com/api/note/${currentNote._id}`,
-          { title, description },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (response.data.success) {
-          editNote(currentNote._id, title, description);
-          closeModal();
-        }
-      } else {
-        // ADD NOTE
-        const response = await axios.post(
-          'http://notes-app-backend-li0h.onrender.com/api/note/add',
-          { title, description },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (response.data.success) {
-          addNote(response.data.note);
-          closeModal();
-        }
-      }
-    } catch (error) {
-      console.error('Note operation failed:', error);
-    }
+    closeModal();
   };
 
   return (
@@ -67,6 +35,7 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder='Note Title'
             className='border p-2 w-full mb-4'
+            required
           />
 
           <textarea
@@ -87,6 +56,5 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
     </div>
   );
 };
-
 
 export default NoteModal;
