@@ -22,6 +22,7 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
       return;
     }
 
+
     try {
       if (currentNote) {
         // EDIT NOTE
@@ -38,7 +39,7 @@ const NoteModal = ({ closeModal, addNote, currentNote, editNote }) => {
       } else {
         // ADD NOTE
         const response = await axios.post(
-          'http://localhost:5001/api/note/add',
+          'http://notes-app-backend-li0h.onrender.com/api/note/add',
           { title, description },
           { headers: { Authorization: `Bearer ${token}` } }
         );
