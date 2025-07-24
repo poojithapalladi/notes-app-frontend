@@ -12,18 +12,18 @@ const Navbar = ({ setQuery }) => {
   };
 
   return (
-    <nav className="bg-gray-900 text-white p-4 sticky top-0 z-50">
+    <nav className="bg-gray-900 text-white px-4 py-3 sticky top-0 z-50">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         
         {/* Logo */}
-        <h1 className="text-xl font-bold">Note App</h1>
+        <h1 className="text-lg sm:text-xl font-bold">Note App</h1>
 
         {/* Search Input */}
         <input
           type="text"
           placeholder="Search notes"
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full sm:w-64 px-3 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 outline-none"
+          className="w-full sm:w-64 px-3 py-1.5 rounded-md bg-gray-800 text-white placeholder-gray-400 outline-none text-sm sm:text-base"
         />
 
         {/* Auth Section */}
@@ -31,16 +31,16 @@ const Navbar = ({ setQuery }) => {
           {!user ? (
             <Link
               to="/login"
-              className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white text-center w-full sm:w-auto"
+              className="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-md text-white text-center text-sm sm:text-base w-full sm:w-auto"
             >
               Login
             </Link>
           ) : (
             <>
-              <span className="font-medium">{user.name}</span>
+              <span className="font-medium text-sm sm:text-base">{user.name}</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white w-full sm:w-auto"
+                className="bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-md text-white text-sm sm:text-base w-full sm:w-auto"
               >
                 Logout
               </button>
