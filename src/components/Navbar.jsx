@@ -1,65 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/ContextProvider';
 
-const Navbar = ({ setQuery }) => {
-  const { user, logout } = useAuth();
-  const [menuOpen, setMenuOpen] = useState(false);
+const Navbar = ({setQuery}) => {
+    const {user, logout}=useAuth();
 
-  return (
-    <nav className="bg-gray-800 text-white px-4 py-3 sticky top-0 z-50 shadow">
-      <div className="flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="text-xl font-bold">Note App</Link>
-
-        {/* Hamburger for mobile */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="lg:hidden focus:outline-none"
-        >
-          <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-
-        {/* Desktop only menu */}
-        <div className="hidden lg:flex items-center gap-4">
-          <input
-            type="text"
-            placeholder="Search notes"
-            className="px-3 py-2 rounded bg-gray-700 text-white"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <span className="font-semibold">{user?.name || 'Demo User'}</span>
-          <button
-            onClick={logout}
-            className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-          >
-            Logout
-          </button>
+     return(
+        <nav className='bg-gray-800 p-4 text-white flex justify-between items-center'>
+        <div className='text-xl font-bold'>
+            <Link to="/">Note App</Link>
         </div>
-      </div>
+        <input type="text" placeholder='Search notes' className='bg-gray-600 px-4 py-2 rounded'
+        
+        onChange={(e)=>setQuery(e.target.value)}/>
+        <div>
+            <span className='mr-4'></span>
+            {!user ?(
+                <>
+            <Link to='/login'className='bg-blue-500 px-4 py-2 rounded mr-4'>Login</Link>
+        
+            </>
+            ) :(   <>
+         <span className='mr-4'>{user.name}</span>
+        <button className='bg-red-500 px-4 py-2 rounded ml-2' onClick={logout}>Logout</button>
 
-      {/* Mobile only dropdown */}
-      {menuOpen && (
-        <div className="lg:hidden mt-3 flex flex-col gap-3">
-          <input
-            type="text"
-            placeholder="Search notes"
-            className="px-3 py-2 rounded bg-gray-700 text-white"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <span className="font-semibold">{user?.name || 'Demo User'}</span>
-          <button
-            onClick={logout}
-            className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </nav>
-  );
-};
+            </>
 
-export default Navbar;
+           ) }
+          </div>
+         </nav>
+
+    )}
+    export default Navbar; 
