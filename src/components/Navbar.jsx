@@ -22,7 +22,7 @@ const Navbar = ({ setQuery }) => {
           </svg>
         </button>
 
-        {/* Desktop Menu */}
+        {/* Desktop only menu */}
         <div className="hidden lg:flex items-center gap-4">
           <input
             type="text"
@@ -30,48 +30,32 @@ const Navbar = ({ setQuery }) => {
             className="px-3 py-2 rounded bg-gray-700 text-white"
             onChange={(e) => setQuery(e.target.value)}
           />
-          {!user ? (
-            <Link to="/login" className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
-              Login
-            </Link>
-          ) : (
-            <>
-              <span className="font-semibold">{user.name}</span>
-              <button
-                onClick={logout}
-                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-              >
-                Logout
-              </button>
-            </>
-          )}
+          <span className="font-semibold">{user?.name || 'Demo User'}</span>
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile only dropdown */}
       {menuOpen && (
-        <div className="flex flex-col gap-3 mt-3 lg:hidden">
+        <div className="lg:hidden mt-3 flex flex-col gap-3">
           <input
             type="text"
             placeholder="Search notes"
             className="px-3 py-2 rounded bg-gray-700 text-white"
             onChange={(e) => setQuery(e.target.value)}
           />
-          {!user ? (
-            <Link to="/login" className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-center">
-              Login
-            </Link>
-          ) : (
-            <>
-              <span className="font-semibold">{user.name}</span>
-              <button
-                onClick={logout}
-                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-              >
-                Logout
-              </button>
-            </>
-          )}
+          <span className="font-semibold">{user?.name || 'Demo User'}</span>
+          <button
+            onClick={logout}
+            className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+          >
+            Logout
+          </button>
         </div>
       )}
     </nav>
