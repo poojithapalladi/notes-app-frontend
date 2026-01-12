@@ -1,4 +1,5 @@
 # React + Vite
+deployment link:https://notes-app-netlify.netlify.app/
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
